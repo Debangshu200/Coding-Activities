@@ -1,29 +1,17 @@
-#include <string>
-#include <vector>
-
 class Solution {
 public:
-    bool isAnagram(std::string s, std::string t) {
-        if (s.length() != t.length()) {
+    bool isAnagram(string s, string t) {
+        if(s.length() != t.length()) {
             return false;
         }
 
-        std::vector<int> counts(26, 0);
-
-        for (int i = 0; i < s.length(); i++) {
-            counts[s[i] - 'a']++;
+        unordered_map<char, int> countS;
+        unordered_map<char, int> countT;
+        for(int i = 0; i < s.length(); i++) {
+            countS[s[i]]++;
+            countT[t[i]]++;
         }
-
-        for (int i = 0; i < t.length(); i++) {
-            counts[t[i] - 'a']--; 
-        }
-
-        for (int count : counts) { 
-            if (count != 0) {
-                return false;
-            }
-        }
-
-        return true;
+        if(countS == countT) return true;
+        else return false;
     }
 };
