@@ -11,7 +11,9 @@ public:
             countS[s[i]]++;
             countT[t[i]]++;
         }
-        if(countS == countT) return true;
-        else return false;
+        // if(countS == countT) return true;
+        // else return false;
+        // we can shoretn the above syntax 
+        return countS == countT;
     }
 };
