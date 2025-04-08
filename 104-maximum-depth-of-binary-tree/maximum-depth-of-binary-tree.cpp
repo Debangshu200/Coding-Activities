@@ -21,27 +21,46 @@ public:
         // // here we know the maximu depth is 1 first , from the root node.
 
 // using Iterative BFS
-    queue<TreeNode*> q;
-    if (root != nullptr) {
-        q.push(root);
-    }
+    // queue<TreeNode*> q;
+    // if (root != nullptr) {
+    //     q.push(root);
+    // }
 
-    int level = 0;
-    while(!q.empty()) {
-        int size = q.size();
-        // we are just traversing the tree
-        for(int i = 0; i < size; i++) {
-            TreeNode* node = q.front(); // the parebt or root node
-            q.pop(); //pop the before hand element before going to the next level
-            if(node->left != nullptr) { //checking if node->left is null or not - left subtree
-                q.push(node->left);
-            }
-            if(node->right != nullptr) { //checking if node->right is null or not - right subtre
-                q.push(node->right);
-            }
+    // int level = 0;
+    // while(!q.empty()) {
+    //     int size = q.size();
+    //     // we are just traversing the tree
+    //     for(int i = 0; i < size; i++) {
+    //         TreeNode* node = q.front(); // the parebt or root node
+    //         q.pop(); //pop the before hand element before going to the next level
+    //         if(node->left != nullptr) { //checking if node->left is null or not - left subtree
+    //             q.push(node->left);
+    //         }
+    //         if(node->right != nullptr) { //checking if node->right is null or not - right subtre
+    //             q.push(node->right);
+    //         }
+    //     }
+    //     level++;
+    // }
+    // return level;
+
+//Using Iterative DFS(stack)
+    stack<pair<TreeNode*, int>> stack;
+    stack.push({root, 1});
+    int res = 0;
+
+    while(!stack.empty()) {
+        pair<TreeNode*, int> current = stack.top();
+        stack.pop();
+        TreeNode* node = current.first;
+        int depth = current.second;
+
+        if(node != nullptr) {
+            res = max(res, depth);
+            stack.push({node->left, depth+1});
+            stack.push({node->right, depth+1});
         }
-        level++;
     }
-    return level;
+    return res;
     }
 };
