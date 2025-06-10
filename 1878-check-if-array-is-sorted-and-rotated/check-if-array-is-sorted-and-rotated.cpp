@@ -1,42 +1,20 @@
 class Solution {
 public:
     bool check(vector<int>& nums) {
-        int i,n=nums.size(),sorted=1;
-        
-        for(i=0;i<n-1;i++){ // this loop will check if the array is already sorted or not
-            if(nums[i]>nums[i+1]){
-                sorted=0;
-                break;
+        int n = nums.size();
+        if(n <= 1) return true;
+        int dip = 0;
+        for(int i = 0; i <= n-1; i++) {
+            if(nums[i] > nums[(i+1) % n]){ // for circular/rotated array one crucial point, we need to compare the last with first elements, b'coz it's a rotated or circular array. In a normal array we can comapre till n-2 and n-1.
+                dip++;
             }
         }
-        if(sorted) return true; // if the array is sorted then it is rotated for n or 0 times
-                                // so array is both sorted and rotated (including zero) so return
-                                // true
-        int rotVal=0;
-        for(i=0;i<n-1;i++){// now if the array is not rotated then with this loop finding the
-                           // rotating value
-            if(nums[i]<=nums[i+1]){
-                rotVal++;
-            }
-            else{
-                rotVal++;
-                break;
-            }
-        }
-        // Now taking an array to store the element after rotating the nums array so that we can 
-        // get the nums array when it was not rotated for rotVal times
-        vector<int>tmp(n);
-        for(i=0;i<rotVal;i++){
-            tmp[n-rotVal+i]=nums[i];
-        }
-        for(i=rotVal;i<n;i++){
-            tmp[i-rotVal]=nums[i];
-        }
+        return dip <= 1;
 
-        // Now checking the non raoted array is sorted or not
-        for(i=0;i<n-1;i++){
-            if(tmp[i]>tmp[i+1]) return false;
-        }
-        return true;
+    //  1. 1st for loop - find the maximum in the array, so if there are any duplicates
+    //  2. 2nd for loop - from i = 0 to arr[max-1] && arr[max+1] to arr[n-1] 
+    //  3. if(arr[i] <= arr[i+1]) return true; 
+    //             else return false
+    // this idea is not helpful in case of duplicate elenments.
     }
 };
