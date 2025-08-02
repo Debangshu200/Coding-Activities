@@ -17,12 +17,13 @@ class Solution:
             qLen = len(q)
 
             for i in range(qLen):
-                #assigning the value of 
+                #assigning the value of queue to node and thus node is initialized
                 node = q.popleft()
                 if node:
                     rightSide = node
                     q.append(node.left)
                     q.append(node.right)
+                #if node which is rightside node is not empty, then we will append value of node
             if rightSide:
                 res.append(rightSide.val)
         return res
